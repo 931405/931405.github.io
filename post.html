@@ -33,10 +33,12 @@
             </header>
 
             <div class="post-body">
-                <p>欢迎来到我的个人博客。这里是一个分享想法、经验和见解的空间。</p>
+                <div class="post-lead">
+                    <p>欢迎来到我的个人博客。这里是一个分享想法、经验和见解的空间。让我们一起探索设计与技术的无限可能。</p>
+                </div>
 
                 <h2>关于这个博客</h2>
-                <p>这个博客采用了极简主义的设计理念，灵感来源于Apple的设计美学。我们相信，最好的设计是那些让人感觉不到设计存在的设计。</p>
+                <p>这个博客采用了现代化的设计理念，融合了年轻活力与极简美学。我们相信，最好的设计是那些让人感觉舒适自然的设计。</p>
 
                 <h3>设计原则</h3>
                 <p>在创建这个博客的过程中，我们遵循了以下几个核心设计原则：</p>
@@ -70,16 +72,93 @@
 
                 <hr>
 
-                <p class="post-footer-note">这只是一个示例文章。你可以在这个模板的基础上添加自己的内容。</p>
+                <div class="post-actions">
+                    <button class="action-btn like-btn">
+                        <i class="far fa-heart"></i>
+                        <span>128</span>
+                    </button>
+                    <button class="action-btn bookmark-btn">
+                        <i class="far fa-bookmark"></i>
+                        <span>收藏</span>
+                    </button>
+                    <button class="action-btn share-btn">
+                        <i class="fas fa-share-alt"></i>
+                        <span>分享</span>
+                    </button>
+                </div>
+
+                <div class="post-footer-note">
+                    <i class="fas fa-info-circle"></i>
+                    <p>这只是一个示例文章。你可以在这个模板的基础上添加自己的内容。</p>
+                </div>
             </div>
         </article>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 我的博客. 保留所有权利.</p>
+            <div class="footer-social">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p>&copy; 2025 我的博客. 用心创作，分享美好</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 点赞按钮动画
+            const likeBtn = document.querySelector('.like-btn');
+            const likeIcon = likeBtn.querySelector('i');
+            const likeCount = likeBtn.querySelector('span');
+            let isLiked = false;
+
+            likeBtn.addEventListener('click', function() {
+                if (!isLiked) {
+                    likeIcon.classList.remove('far');
+                    likeIcon.classList.add('fas');
+                    likeBtn.classList.add('liked');
+                    likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                } else {
+                    likeIcon.classList.remove('fas');
+                    likeIcon.classList.add('far');
+                    likeBtn.classList.remove('liked');
+                    likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                }
+                isLiked = !isLiked;
+            });
+
+            // 收藏按钮动画
+            const bookmarkBtn = document.querySelector('.bookmark-btn');
+            const bookmarkIcon = bookmarkBtn.querySelector('i');
+            let isBookmarked = false;
+
+            bookmarkBtn.addEventListener('click', function() {
+                if (!isBookmarked) {
+                    bookmarkIcon.classList.remove('far');
+                    bookmarkIcon.classList.add('fas');
+                    bookmarkBtn.classList.add('bookmarked');
+                } else {
+                    bookmarkIcon.classList.remove('fas');
+                    bookmarkIcon.classList.add('far');
+                    bookmarkBtn.classList.remove('bookmarked');
+                }
+                isBookmarked = !isBookmarked;
+            });
+
+            // 导航栏滚动效果
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 

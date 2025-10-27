@@ -22,89 +22,170 @@
         <div class="content-wrapper">
             <header class="page-header">
                 <div class="hero-section">
-                    <div class="hero-number">05</div>
-                    <h1 class="hero-title">最新文章</h1>
-                    <p class="hero-subtitle">LATEST ARTICLES</p>
-                    <div class="hero-decoration"></div>
+                    <div class="hero-avatar">
+                        <div class="avatar-ring"></div>
+                        <div class="avatar-image">
+                            <i class="fas fa-user-astronaut"></i>
+                        </div>
+                    </div>
+                    <h1 class="hero-title">嗨，我是一名创作者</h1>
+                    <p class="hero-subtitle">Hi, I'm a Creator</p>
+                    <p class="hero-description">在这里分享关于设计、技术和生活的思考</p>
+                    <div class="hero-tags">
+                        <span class="tag-filter active" data-category="all">全部</span>
+                        <span class="tag-filter" data-category="design">设计</span>
+                        <span class="tag-filter" data-category="tech">技术</span>
+                        <span class="tag-filter" data-category="life">生活</span>
+                    </div>
                 </div>
             </header>
 
             <section class="posts-list">
-                <article class="post-item">
+                <article class="post-card" data-category="design">
                     <a href="post.html" class="post-link">
-                        <div class="post-icon">
-                            <i class="fas fa-rocket"></i>
+                        <div class="post-thumbnail">
+                            <div class="thumbnail-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <i class="fas fa-rocket"></i>
+                            </div>
                         </div>
                         <div class="post-content-wrapper">
+                            <div class="post-header-meta">
+                                <span class="post-category-badge design">设计</span>
+                                <time class="post-date"><i class="far fa-clock"></i> 5 min</time>
+                            </div>
                             <h2 class="post-title">欢迎来到我的博客</h2>
-                            <p class="post-excerpt">探索设计与技术的完美融合</p>
-                            <div class="post-meta">
-                                <time class="post-date"><i class="far fa-calendar"></i> 2025年10月27日</time>
-                                <span class="post-tag">Design</span>
+                            <p class="post-excerpt">探索设计与技术的完美融合，用创意改变世界</p>
+                            <div class="post-footer-meta">
+                                <span class="post-date-full">2025年10月27日</span>
+                                <div class="post-stats">
+                                    <span><i class="far fa-heart"></i> 128</span>
+                                    <span><i class="far fa-comment"></i> 24</span>
+                                </div>
                             </div>
                         </div>
                     </a>
                 </article>
 
-                <article class="post-item">
+                <article class="post-card" data-category="design">
                     <a href="post.html" class="post-link">
-                        <div class="post-icon">
-                            <i class="fas fa-palette"></i>
+                        <div class="post-thumbnail">
+                            <div class="thumbnail-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                <i class="fas fa-palette"></i>
+                            </div>
                         </div>
                         <div class="post-content-wrapper">
+                            <div class="post-header-meta">
+                                <span class="post-category-badge design">设计</span>
+                                <time class="post-date"><i class="far fa-clock"></i> 8 min</time>
+                            </div>
                             <h2 class="post-title">关于极简主义设计的思考</h2>
-                            <p class="post-excerpt">少即是多的设计哲学</p>
-                            <div class="post-meta">
-                                <time class="post-date"><i class="far fa-calendar"></i> 2025年10月20日</time>
-                                <span class="post-tag">Minimal</span>
+                            <p class="post-excerpt">少即是多的设计哲学，探索简约之美</p>
+                            <div class="post-footer-meta">
+                                <span class="post-date-full">2025年10月20日</span>
+                                <div class="post-stats">
+                                    <span><i class="far fa-heart"></i> 256</span>
+                                    <span><i class="far fa-comment"></i> 45</span>
+                                </div>
                             </div>
                         </div>
                     </a>
                 </article>
 
-                <article class="post-item">
+                <article class="post-card" data-category="tech">
                     <a href="post.html" class="post-link">
-                        <div class="post-icon">
-                            <i class="fas fa-star"></i>
+                        <div class="post-thumbnail">
+                            <div class="thumbnail-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                <i class="fas fa-star"></i>
+                            </div>
                         </div>
                         <div class="post-content-wrapper">
+                            <div class="post-header-meta">
+                                <span class="post-category-badge tech">技术</span>
+                                <time class="post-date"><i class="far fa-clock"></i> 6 min</time>
+                            </div>
                             <h2 class="post-title">如何打造优雅的用户体验</h2>
-                            <p class="post-excerpt">从细节中见真章</p>
-                            <div class="post-meta">
-                                <time class="post-date"><i class="far fa-calendar"></i> 2025年10月15日</time>
-                                <span class="post-tag">UX</span>
+                            <p class="post-excerpt">从细节中见真章，用心打磨每一个交互</p>
+                            <div class="post-footer-meta">
+                                <span class="post-date-full">2025年10月15日</span>
+                                <div class="post-stats">
+                                    <span><i class="far fa-heart"></i> 189</span>
+                                    <span><i class="far fa-comment"></i> 32</span>
+                                </div>
                             </div>
                         </div>
                     </a>
                 </article>
 
-                <article class="post-item">
+                <article class="post-card" data-category="tech">
                     <a href="post.html" class="post-link">
-                        <div class="post-icon">
-                            <i class="fas fa-code"></i>
+                        <div class="post-thumbnail">
+                            <div class="thumbnail-placeholder" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                                <i class="fas fa-code"></i>
+                            </div>
                         </div>
                         <div class="post-content-wrapper">
+                            <div class="post-header-meta">
+                                <span class="post-category-badge tech">技术</span>
+                                <time class="post-date"><i class="far fa-clock"></i> 12 min</time>
+                            </div>
                             <h2 class="post-title">现代Web开发最佳实践</h2>
-                            <p class="post-excerpt">构建高性能Web应用</p>
-                            <div class="post-meta">
-                                <time class="post-date"><i class="far fa-calendar"></i> 2025年10月10日</time>
-                                <span class="post-tag">Dev</span>
+                            <p class="post-excerpt">构建高性能Web应用的实战指南</p>
+                            <div class="post-footer-meta">
+                                <span class="post-date-full">2025年10月10日</span>
+                                <div class="post-stats">
+                                    <span><i class="far fa-heart"></i> 342</span>
+                                    <span><i class="far fa-comment"></i> 67</span>
+                                </div>
                             </div>
                         </div>
                     </a>
                 </article>
 
-                <article class="post-item">
+                <article class="post-card" data-category="life">
                     <a href="post.html" class="post-link">
-                        <div class="post-icon">
-                            <i class="fas fa-lightbulb"></i>
+                        <div class="post-thumbnail">
+                            <div class="thumbnail-placeholder" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
                         </div>
                         <div class="post-content-wrapper">
+                            <div class="post-header-meta">
+                                <span class="post-category-badge life">生活</span>
+                                <time class="post-date"><i class="far fa-clock"></i> 4 min</time>
+                            </div>
                             <h2 class="post-title">设计与技术的完美结合</h2>
-                            <p class="post-excerpt">创意与实现的平衡之道</p>
-                            <div class="post-meta">
-                                <time class="post-date"><i class="far fa-calendar"></i> 2025年10月5日</time>
-                                <span class="post-tag">Tech</span>
+                            <p class="post-excerpt">创意与实现的平衡之道，思考与行动的融合</p>
+                            <div class="post-footer-meta">
+                                <span class="post-date-full">2025年10月5日</span>
+                                <div class="post-stats">
+                                    <span><i class="far fa-heart"></i> 215</span>
+                                    <span><i class="far fa-comment"></i> 38</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="post-card" data-category="design">
+                    <a href="post.html" class="post-link">
+                        <div class="post-thumbnail">
+                            <div class="thumbnail-placeholder" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="post-content-wrapper">
+                            <div class="post-header-meta">
+                                <span class="post-category-badge design">设计</span>
+                                <time class="post-date"><i class="far fa-clock"></i> 7 min</time>
+                            </div>
+                            <h2 class="post-title">色彩心理学在设计中的应用</h2>
+                            <p class="post-excerpt">用颜色讲故事，让设计更有温度</p>
+                            <div class="post-footer-meta">
+                                <span class="post-date-full">2025年10月1日</span>
+                                <div class="post-stats">
+                                    <span><i class="far fa-heart"></i> 176</span>
+                                    <span><i class="far fa-comment"></i> 29</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -115,8 +196,84 @@
 
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 我的博客. 保留所有权利.</p>
+            <div class="footer-social">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p>&copy; 2025 我的博客. 用心创作，分享美好</p>
         </div>
     </footer>
+
+    <script>
+        // 平滑滚动到顶部
+        document.addEventListener('DOMContentLoaded', function() {
+            // 标签筛选功能
+            const filters = document.querySelectorAll('.tag-filter');
+            const posts = document.querySelectorAll('.post-card');
+            
+            filters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    
+                    // 更新激活状态
+                    filters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 筛选文章
+                    posts.forEach(post => {
+                        if (category === 'all' || post.getAttribute('data-category') === category) {
+                            post.style.display = 'block';
+                            setTimeout(() => {
+                                post.style.opacity = '1';
+                                post.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            post.style.opacity = '0';
+                            post.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                post.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // 导航栏滚动效果
+            let lastScroll = 0;
+            const navbar = document.querySelector('.navbar');
+            
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                lastScroll = currentScroll;
+            });
+
+            // 观察器用于滚动动画
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+
+            posts.forEach(post => {
+                observer.observe(post);
+            });
+        });
+    </script>
 </body>
 </html>
