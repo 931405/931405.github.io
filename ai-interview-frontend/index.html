@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI面试系统 - 专业版</title>
+    <!-- 使用专业商业样式 -->
+    <link rel="stylesheet" href="styles-professional.css">
+    <!-- PDF.js 库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-left">
+                    <h1 class="logo">
+                        <span class="logo-icon">AI</span>
+                        <span class="logo-text">面试系统</span>
+                    </h1>
+                </div>
+                
+                <div class="nav-center">
+                    <div class="nav-menu">
+                        <button class="nav-btn active" data-page="home">
+                            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            </svg>
+                            <span class="nav-text">首页</span>
+                        </button>
+                        <button class="nav-btn" data-page="resume">
+                            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            <span class="nav-text">简历管理</span>
+                        </button>
+                        <button class="nav-btn" data-page="interview">
+                            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span class="nav-text">我的面试</span>
+                        </button>
+                        <button class="nav-btn" data-page="settings">
+                            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M12 1v6m0 6v6m6-11h-6m-6 0h6m6 6h-6m-6 0h6"></path>
+                            </svg>
+                            <span class="nav-text">设置</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="nav-right">
+                    <button class="nav-icon-btn" onclick="toggleHelp()" title="帮助">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </button>
+                    <button class="nav-icon-btn" onclick="toggleTheme()" title="切换主题">
+                        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                    <div class="nav-user">
+                        <div class="user-avatar">U</div>
+                        <span class="user-name">访客</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 首页 -->
+            <div id="page-home" class="page active">
+                <div class="hero">
+                    <div class="hero-content">
+                        <div class="hero-badge">AI驱动 · 智能面试</div>
+                        <h2>欢迎使用AI面试系统</h2>
+                        <p class="hero-subtitle">基于DeepSeek AI的智能面试练习平台</p>
+                        <p class="hero-description">通过AI技术模拟真实面试场景，提供个性化问题生成与专业评分反馈</p>
+                        <div class="quick-actions">
+                            <button class="btn btn-primary btn-large" onclick="navigateTo('resume')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                <span class="btn-text">上传简历</span>
+                            </button>
+                            <button class="btn btn-secondary btn-large" onclick="navigateTo('interview')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                                <span class="btn-text">开始面试</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-section">
+                    <div class="stat-card glass-card">
+                        <div class="stat-header">
+                            <svg class="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                            <span class="stat-trend up">+12%</span>
+                        </div>
+                        <div class="stat-value" id="totalInterviews">0</div>
+                        <div class="stat-label">累计面试</div>
+                        <div class="stat-footer">较上周</div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-header">
+                            <svg class="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            <span class="stat-status">已分析</span>
+                        </div>
+                        <div class="stat-value" id="totalResumes">0</div>
+                        <div class="stat-label">简历数量</div>
+                        <div class="stat-footer" id="analyzedResumes">0 份已分析</div>
+                    </div>
+                    <div class="stat-card glass-card highlight">
+                        <div class="stat-header">
+                            <svg class="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            <span class="stat-badge" id="scoreBadge">--</span>
+                        </div>
+                        <div class="stat-value" id="avgScore">--</div>
+                        <div class="stat-label">平均分数</div>
+                        <div class="stat-footer">满分100分</div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-header">
+                            <svg class="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span class="stat-percentage" id="passRate">0%</span>
+                        </div>
+                        <div class="stat-value" id="completedCount">0</div>
+                        <div class="stat-label">完成面试</div>
+                        <div class="stat-footer">通过率</div>
+                    </div>
+                </div>
+                
+                <div class="quick-links">
+                    <h3 class="section-subtitle">快捷操作</h3>
+                    <div class="quick-links-grid">
+                        <div class="quick-link-card" onclick="navigateTo('resume')">
+                            <svg class="quick-link-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <h4>上传简历</h4>
+                            <p>上传并分析您的简历</p>
+                        </div>
+                        <div class="quick-link-card" onclick="showInterviewSetup()">
+                            <svg class="quick-link-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <h4>创建面试</h4>
+                            <p>开始新的模拟面试</p>
+                        </div>
+                        <div class="quick-link-card" onclick="navigateTo('interview')">
+                            <svg class="quick-link-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            <h4>查看记录</h4>
+                            <p>浏览历史面试记录</p>
+                        </div>
+                        <div class="quick-link-card" onclick="navigateTo('settings')">
+                            <svg class="quick-link-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M12 1v6m0 6v6m6-11h-6m-6 0h6m6 6h-6m-6 0h6"></path>
+                            </svg>
+                            <h4>系统设置</h4>
+                            <p>配置API和偏好</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="analytics-section">
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h3 class="section-subtitle">能力分析</h3>
+                            <div id="skillRadarChart" class="chart-container">
+                                <canvas id="radarCanvas" width="300" height="300"></canvas>
+                            </div>
+                            <div id="weaknessAnalysis" class="weakness-list"></div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3 class="section-subtitle">最近动态</h3>
+                            <div id="recentActivityList" class="activity-list"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                        </div>
+                        <h3>智能简历分析</h3>
+                        <p>AI自动解析简历内容，智能提取教育背景、工作经历、项目经验和技能清单</p>
+                        <div class="feature-tags">
+                            <span class="tag">PDF识别</span>
+                            <span class="tag">自动提取</span>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3>动态问题生成</h3>
+                        <p>根据简历内容和应聘岗位，实时生成针对性面试问题，覆盖三个阶段</p>
+                        <div class="feature-tags">
+                            <span class="tag">个性化</span>
+                            <span class="tag">三阶段</span>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <h3>实时评分反馈</h3>
+                        <p>AI智能评估回答质量，提供详细的优点分析和改进建议，助力面试提升</p>
+                        <div class="feature-tags">
+                            <span class="tag">即时反馈</span>
+                            <span class="tag">专业评分</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-section">
+                    <h2 class="section-title">使用流程</h2>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">01</div>
+                            <svg class="step-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <h4>上传简历</h4>
+                            <p>支持PDF/TXT格式，AI自动解析</p>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">
+                            <div class="step-number">02</div>
+                            <svg class="step-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M12 1v6m0 6v6m6-11h-6m-6 0h6m6 6h-6m-6 0h6"></path>
+                            </svg>
+                            <h4>配置面试</h4>
+                            <p>选择岗位，填写公司和要求</p>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">
+                            <div class="step-number">03</div>
+                            <svg class="step-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 16v-4M12 8h.01"></path>
+                            </svg>
+                            <h4>开始答题</h4>
+                            <p>AI生成问题，实时作答</p>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">
+                            <div class="step-number">04</div>
+                            <svg class="step-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                            <h4>查看结果</h4>
+                            <p>获得评分和改进建议</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 简历管理页 -->
+            <div id="page-resume" class="page">
+                <div class="page-header">
+                    <div>
+                        <h2>简历管理</h2>
+                        <p class="page-subtitle">上传并管理您的简历，AI将自动分析提取关键信息</p>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-content">
+                            <svg class="upload-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <h3>上传简历文件</h3>
+                            <p class="upload-hint">拖拽文件到此处或点击选择</p>
+                            <p class="upload-formats">支持格式：PDF、TXT（推荐PDF格式）</p>
+                            <input type="file" id="resumeFile" accept=".pdf,.doc,.docx,.txt" hidden>
+                            <button class="btn btn-primary btn-upload" onclick="document.getElementById('resumeFile').click()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                    <polyline points="13 2 13 9 20 9"></polyline>
+                                </svg>
+                                <span class="btn-text">选择文件</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-toolbar">
+                        <div class="resume-list-header">
+                            <h3>我的简历</h3>
+                            <span class="resume-count" id="resumeCount">0 份简历</span>
+                        </div>
+                        <div class="resume-controls">
+                            <div class="search-box">
+                                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.35-4.35"></path>
+                                </svg>
+                                <input type="text" id="resumeSearch" class="search-input" placeholder="搜索简历...">
+                            </div>
+                            <div class="filter-dropdown">
+                                <select id="resumeFilter" class="filter-select">
+                                    <option value="all">全部状态</option>
+                                    <option value="analyzed">已分析</option>
+                                    <option value="pending">待分析</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-secondary btn-small" onclick="batchAnalyzeResumes()" title="批量分析">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                </svg>
+                                <span class="btn-text">批量分析</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="resumeList" class="resume-list"></div>
+                </div>
+            </div>
+
+            <!-- 面试页 -->
+            <div id="page-interview" class="page">
+                <div class="page-header">
+                    <div>
+                        <h2>我的面试</h2>
+                        <p class="page-subtitle">管理您的面试记录，查看历史成绩和反馈</p>
+                    </div>
+                    <button class="btn btn-primary btn-create" onclick="showInterviewSetup()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span class="btn-text">创建新面试</span>
+                    </button>
+                </div>
+                
+                <div class="interview-filters">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="pending">待开始</button>
+                    <button class="filter-btn" data-filter="in_progress">进行中</button>
+                    <button class="filter-btn" data-filter="completed">已完成</button>
+                </div>
+                
+                <div id="interviewList" class="interview-list"></div>
+            </div>
+
+            <!-- 设置页 -->
+            <div id="page-settings" class="page">
+                <div class="page-header">
+                    <div>
+                        <h2>系统设置</h2>
+                        <p class="page-subtitle">配置API密钥和系统参数</p>
+                    </div>
+                </div>
+                
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <div class="section-header">
+                            <h3>API配置</h3>
+                            <p>配置DeepSeek API以启用AI功能</p>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label>
+                                <span class="label-text">DeepSeek API Key</span>
+                                <span class="label-required">*必填</span>
+                            </label>
+                            <div class="input-group">
+                                <input type="password" id="apiKey" class="form-control" placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxx">
+                                <button class="btn btn-icon" onclick="togglePasswordVisibility('apiKey')" title="显示/隐藏">
+                                    👁️
+                                </button>
+                            </div>
+                            <p class="input-hint">
+                                <a href="https://platform.deepseek.com/" target="_blank" class="link">获取API Key →</a>
+                            </p>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label>
+                                <span class="label-text">API Base URL</span>
+                            </label>
+                            <input type="text" id="apiBaseUrl" class="form-control" value="https://api.deepseek.com" placeholder="https://api.deepseek.com">
+                            <p class="input-hint">通常无需修改，保持默认即可</p>
+                        </div>
+                        
+                        <div class="setting-actions">
+                            <button class="btn btn-primary" onclick="saveApiKey()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                    <polyline points="7 3 7 8 15 8"></polyline>
+                                </svg>
+                                <span class="btn-text">保存配置</span>
+                            </button>
+                            <button class="btn btn-secondary" onclick="testApiKey()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                </svg>
+                                <span class="btn-text">测试连接</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="section-header">
+                            <h3>数据管理</h3>
+                            <p>管理本地存储的数据</p>
+                        </div>
+                        
+                        <div class="data-info">
+                            <div class="data-item">
+                                <span class="data-label">简历数量</span>
+                                <span class="data-value" id="settingsResumeCount">0</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">面试记录</span>
+                                <span class="data-value" id="settingsInterviewCount">0</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">存储使用</span>
+                                <span class="data-value" id="storageUsage">-- KB</span>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label>数据备份与恢复</label>
+                            <div class="setting-actions">
+                                <button class="btn btn-primary" onclick="exportAllData()">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                    <span class="btn-text">导出数据</span>
+                                </button>
+                                <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    <span class="btn-text">导入数据</span>
+                                </button>
+                                <input type="file" id="importFile" accept=".json" hidden onchange="importData(this.files[0])">
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label>面试记录导出</label>
+                            <button class="btn btn-secondary" onclick="exportInterviewsCSV()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                <span class="btn-text">导出CSV格式</span>
+                            </button>
+                        </div>
+                        
+                        <div class="divider"></div>
+                        
+                        <div class="setting-actions">
+                            <button class="btn btn-danger" onclick="clearAllData()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                                <span class="btn-text">清除所有数据</span>
+                            </button>
+                        </div>
+                        
+                        <div class="warning-box">
+                            <strong>注意：</strong>清除数据后将无法恢复，请先导出备份
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="section-header">
+                            <h3>关于系统</h3>
+                        </div>
+                        
+                        <div class="about-info">
+                            <p><strong>版本：</strong>v2.0.0 科技未来版</p>
+                            <p><strong>技术栈：</strong>纯前端 HTML + CSS + JavaScript</p>
+                            <p><strong>AI引擎：</strong>DeepSeek API</p>
+                            <p><strong>数据存储：</strong>LocalStorage（本地浏览器）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 模态框：面试设置 -->
+    <div id="interviewSetupModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>创建新面试</h3>
+                <span class="close" onclick="closeModal('interviewSetupModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>选择简历</label>
+                    <select id="selectResume" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label>应聘岗位</label>
+                    <input type="text" id="position" class="form-control" placeholder="如：前端工程师">
+                </div>
+                <div class="form-group">
+                    <label>公司名称（可选）</label>
+                    <div class="input-group">
+                        <input type="text" id="companyName" class="form-control" placeholder="如：阿里巴巴">
+                        <button class="btn btn-secondary" onclick="searchCompanyInfo()" title="搜索公司信息">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="companyInfoPreview" class="info-preview" style="display:none;"></div>
+                </div>
+                <div class="form-group">
+                    <label>岗位要求（可选）</label>
+                    <textarea id="jobRequirements" class="form-control" rows="3" placeholder="粘贴招聘JD或关键要求"></textarea>
+                    <button class="btn btn-secondary btn-small" onclick="analyzeJD()" style="margin-top:0.5rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        </svg>
+                        <span>分析JD</span>
+                    </button>
+                    <div id="jdAnalysisPreview" class="info-preview" style="display:none;"></div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="isTechnical" checked>
+                        技术岗位（包含算法题）
+                    </label>
+                </div>
+                <div id="interviewScenario" class="scenario-preview" style="display:none;">
+                    <h4>面试场景预览</h4>
+                    <div id="scenarioContent" class="scenario-content"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('interviewSetupModal')">取消</button>
+                <button class="btn btn-primary" onclick="createInterview()">开始面试</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框：面试进行中 -->
+    <div id="interviewModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>面试进行中</h3>
+                <span class="close" onclick="exitInterview()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="interview-progress">
+                    <div class="stage-indicator">
+                        <span class="stage active" data-stage="1">基础知识</span>
+                        <span class="stage" data-stage="2">项目经历</span>
+                        <span class="stage" data-stage="3">算法/综合</span>
+                    </div>
+                    <div class="question-counter">
+                        <span id="currentQuestion">问题 1/3</span>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <div class="question-card">
+                        <div class="question-header">
+                            <span class="question-type" id="questionType">基础知识</span>
+                            <span class="timer" id="timer">05:00</span>
+                        </div>
+                        <div class="question-content" id="questionContent">
+                            <p class="loading">正在生成问题...</p>
+                        </div>
+                    </div>
+                    <div class="answer-section">
+                        <div class="answer-toolbar">
+                            <button class="btn btn-secondary btn-small" onclick="showAnswerTemplates()" title="查看答案模板">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                </svg>
+                                模板
+                            </button>
+                            <button class="btn btn-secondary btn-small" onclick="readQuestionAloud()" title="朗读问题">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                </svg>
+                                朗读
+                            </button>
+                            <button class="btn btn-secondary btn-small" onclick="showInterviewTips()" title="答题技巧">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                                技巧
+                            </button>
+                            <div class="answer-quality" id="answerQuality"></div>
+                        </div>
+                        <textarea id="answerInput" class="answer-input" placeholder="请输入您的回答..." rows="8" oninput="checkAnswerQuality()"></textarea>
+                        <div class="answer-stats">
+                            <span id="answerWordCount">0 字</span>
+                            <span class="auto-save-indicator" id="autoSaveStatus"></span>
+                        </div>
+                        <div class="answer-actions">
+                            <button class="btn btn-primary" onclick="submitAnswer()">提交答案</button>
+                            <button class="btn btn-secondary" onclick="skipQuestion()">跳过</button>
+                        </div>
+                    </div>
+                    <div id="evaluationResult" class="evaluation-result" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框：面试结果 -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>面试结果</h3>
+                <span class="close" onclick="closeModal('resultModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="resultContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal('resultModal')">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 核心依赖 -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/notification.js"></script>
+    <script src="js/performance.js"></script>
+    
+    <!-- 量子加载动画 -->
+    <script src="js/loading-animation.js"></script>
+    
+    <!-- 业务模块 -->
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/web-search.js"></script>
+    <script src="js/resume-optimizer.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/export-import.js"></script>
+    <script src="js/question-bank.js"></script>
+    <script src="js/features-advanced.js"></script>
+    <script src="js/resume.js"></script>
+    <script src="js/interview.js"></script>
+    <script src="js/app.js"></script>
+    
+    <!-- 粒子特效 -->
+    <script src="js/particle-effects.js"></script>
+</body>
+</html>
+
